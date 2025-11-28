@@ -1,0 +1,4 @@
+nltk
+textblob
+psycopg2-binary  # Driver para PostgreSQL
+sqlalchemy
