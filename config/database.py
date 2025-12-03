@@ -1,14 +1,14 @@
-from sqlalchemy import create_engine # <-- Mantenha esta linha no topo!
+from sqlalchemy import create_engine
 
 def get_connection_string():
     
-    USER = "postgres"      
-    PASSWORD = "123456"
-    HOST = "localhost"     
+    USER = "airflow"      
+    PASSWORD = "airflow"
+    HOST = "postgres"     
     PORT = "5432"          
-    DATABASE = "pipeline_db" 
+    DATABASE = "airflow" 
     
-    return f"postgresql://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"
+    return f"postgresql+psycopg2://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}"
 
 def get_engine():
     return create_engine(get_connection_string())

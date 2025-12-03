@@ -10,7 +10,8 @@ print("Estrutura de pastas verificada.")
 # 2. Carregar dados da fonte original
 df_raw = pd.read_csv('/opt/airflow/data/source/twitter_sentiment.csv', 
                      header=None,
-                     encoding='latin-1')
+                     encoding='latin-1',
+                     nrows=1000)
     
     # 3. Adicionar informações de metadados
 df_raw['data_ingestao'] = datetime.now()

@@ -1,64 +1,44 @@
 # ---------------------------------------------------
-# 1. AMBIENTE PYTHON E DEPENDÊNCIAS
+# 1. ARQUIVOS DE CACHE E METADADOS DO PYTHON / JUPYTER
 # ---------------------------------------------------
 __pycache__/
 *.pyc
 *.pyd
 *.so
-.Python
-# Arquivos de ambiente virtual
+.ipynb_checkpoints/ # Cache de notebooks
+.vscode/            # Configurações de usuário do VS Code (opcional)
+
+# ---------------------------------------------------
+# 2. ARQUIVOS DE SAÍDA DO PIPELINE (CAMADAS DE DADOS)
+# ---------------------------------------------------
+# A pasta 'data' é mapeada, mas só deve conter o input (source).
+# EXCLUIR TODOS OS ARQUIVOS GRANDES GERADOS PELO ETL (Bronze, Silver, Gold):
+data/bronze/
+data/silver/
+data/gold/
+!data/source/ # Permite que a pasta 'source' e o CSV fiquem (CRÍTICO)
+data/*.csv    # Exclui qualquer CSV solto na pasta data/
+
+# ---------------------------------------------------
+# 3. AMBIENTE DOCKER E AIRFLOW
+# ---------------------------------------------------
+# Logs do Airflow (Muito grandes)
+logs/
+
+# Arquivos de metadados do DB (PostgreSQL interno do Airflow)
+volumes/
+
+# Arquivos de ambiente e segredos (O .env deve ficar localmente no seu PC, mas é bom listá-lo)
+.env
+*.Zone.Identifier # Cache de bloqueio do Windows/WSL
+*.pid
+
+# ---------------------------------------------------
+# 4. DEPENDÊNCIAS PYTHON
+# ---------------------------------------------------
+# Ambientes virtuais
 venv/
 .venv/
-env/
-# Dependências instaladas (se você usa pip freeze)
-*.egg-info/
-dist/
-build/
 
-# ---------------------------------------------------
-# 2. FERRAMENTAS E NOTEBOOKS
-# ---------------------------------------------------
-.ipynb_checkpoints  # Checkpoints temporários do Jupyter Notebook
-.idea/              # Arquivos de projeto do PyCharm/IntelliJ
-.vscode/            # Arquivos de configuração específicos do VS Code
-Thumbs.db           # Cache de imagens do Windows
-*.swp               # Arquivos temporários do Vim
 
-# ---------------------------------------------------
-# 3. DADOS BRUTOS, CACHE E SAÍDA DO PIPELINE (CRÍTICO!)
-# ---------------------------------------------------
-# A pasta 'data' que você mapeou no Docker/Airflow
-# Contém dados brutos, bronze, silver, gold, que são grandes ou recriáveis.
-data/
-# Logs gerados pelo pipeline
-*.log
-
-# ---------------------------------------------------
-# 4. AIRFLOW E DOCKER COMPOSE
-# ---------------------------------------------------
-# Pasta que armazena os logs do Airflow (muito grandes)
-airflow/logs/
-# Pasta onde o Airflow armazena o banco de dados interno e metadados
-airflow/sqlite.db
-airflow/webserver_*.pid
-# Arquivos gerados pelo Docker Compose
-docker-compose.yaml.Zone.Identifier # Arquivos de bloqueio do Windows/WSL
-# Logs e caches gerados pelo Docker
-.dockerignore
-
-# ---------------------------------------------------
-# 5. BANCO DE DADOS E SQLALCHEMY
-# ---------------------------------------------------
-# Arquivos de bancos de dados locais (SQLite)
-*.db
-*.sqlite
-*.sqlite3
-
-# ---------------------------------------------------
-# 6. CONFIGURAÇÕES SECRETAS
-# ---------------------------------------------------
-# Arquivo que contém senhas do banco de dados e variáveis de ambiente
-# O Airflow usa este arquivo para configuração
-.env
-# Arquivos de configuração do Docker Compose que podem ter senhas
-docker-compose.override.yml
+data/*.csv
